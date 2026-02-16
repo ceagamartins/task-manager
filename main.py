@@ -1,11 +1,12 @@
 from fastapi import FastAPI
+from routers import tarefas
 
 app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return{"message": "Minha primeira API está funcionando"}
+    return{"message": "Minha API está organizada"}
 
-@app.get("/sobre")
-def sobre():
-    return {"autor": "Christian", "projeto": "Task Manager"}
+@app.get("/status")
+def status():
+    return {"status": "API online"}
