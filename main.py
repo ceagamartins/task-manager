@@ -1,5 +1,11 @@
-def main():
-    print("Ambiente Python configurado com sucesso!")
+from fastapi import FastAPI
 
-if __name__ == "__main__":
-    main()
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return{"message": "Minha primeira API está funcionando"}
+
+@app.get("/sobre")
+def sobre():
+    return {"autor": "Christian", "projeto": "Task Manager"}
