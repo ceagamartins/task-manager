@@ -1,5 +1,17 @@
 .venv/
+
+packages.microsoft.gpg
+
+# Ambiente virtual
+venv/
+
+# Banco SQLite
+*.db
+
+# Cache Python
 __pycache__/
 *.pyc
-.env
-packages.microsoft.gpg
+
+# Arquivos do sistema
+.DS_Store
+
