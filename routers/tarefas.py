@@ -13,6 +13,7 @@ def get_db():
     finally:
         db.close()
 
+#CREATE
 @router.post("/tarefas", response_model=schemas.TarefaResponse)
 def criar_tarefa(tarefa: schemas.TarefaCreate, db: Session = Depends(get_db)):
     nova_tarefa = models.Tarefa(
@@ -27,7 +28,46 @@ def criar_tarefa(tarefa: schemas.TarefaCreate, db: Session = Depends(get_db)):
 
     return nova_tarefa
 
-
+#READ
 @router.get("/tarefas", response_model=list[schemas.TarefaResponse])
 def listar_tarefas(db: Session = Depends(get_db)):
     return db.query(models.Tarefa).all()
+
+@router.get("/tarefas/{tarefa_id}", response_model=schemas.TarefaResponse)
+def buscar_tarefa(tarefa_id: int, db: Session = Depends(get_db)):
+    tarefa = db.query(models.Tarefa).filter(models.Tarefa.id == tarefa_id).first()
+
+    if not tarefa:
+        return {"erro": "Tarefa não encontrada"}
+    
+    return tarefa
+
+#UPDATE
+@router.put("/tarefas/{tarefa_id}", response_model=schemas.TarefaResponse)
+def atualizar_tarefa(tarefa_id: int, dados: schemas.TarefaCreate, db: Session = Depends(get_db)):
+    tarefa = db.query(models.Tarefa).filter(models.Tarefa.id == tarefa_id).first()
+
+    if not tarefa:
+        return {"erro": "Tarefa não encontrada"}
+
+    tarefa.titulo = dados.titulo
+    tarefa.descricao = dados.descricao
+    tarefa.concluida = dados.concluida
+
+    db.commit()
+    db.refresh(tarefa)
+
+    return tarefa
+
+#DELETE
+@router.delete("/tarefas/{tarefa_id}")
+def deletar_tarefa(tarefa_id: int, db: Session = Depends(get_db)):
+    tarefa = db.query(models.Tarefa).filter(models.Tarefa.id == tarefa_id).first()
+
+    if not tarefa:
+        return {"erro": "Tarefa não encontrada"}
+    
+    db.delete(tarefa)
+    db.commit()
+
+    return {"mensagem": "Tarefa deletada com sucesso"}
