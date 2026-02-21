@@ -1,0 +1,55 @@
+/* Cores neutras modernas */
+body {
+    background-color: #f5f6f8;
+    color: #1f2937;
+    min-height: 100vh;
+}
+
+.card-custom {
+    border: none;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.form-control {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.form-control:focus {
+    background-color: #ffffff;
+    border-color: #6b7280;
+    box-shadow: none;
+}
+
+.list-group-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px !important;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+}
+
+/* Badges modernas */
+.badge-concluida {
+    background-color: #16a34a;
+    color: #ffffff;
+}
+
+.badge-pendente {
+    background-color: #6b7280;
+    color: #ffffff;
+}
+
+/* Melhor espaçamento mobile */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+.tarefa-concluida strong,
+.tarefa-concluida small {
+    text-decoration: line-through;
+    opacity: 0.6;
+}

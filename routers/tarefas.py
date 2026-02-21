@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import SessionLocal
+from fastapi import HTTPException
 import models
 import schemas
 
@@ -71,3 +72,17 @@ def deletar_tarefa(tarefa_id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"mensagem": "Tarefa deletada com sucesso"}
+
+# ALTERA STATUS DA TAREFA NA LISTA
+@router.patch("/tarefas/{tarefa_id}")
+def atualizar_status(tarefa_id: int, db: Session = Depends(get_db)):
+    tarefa = db.query(models.Tarefa).filter(models.Tarefa.id == tarefa_id).first()
+
+    if not tarefa:
+        raise HTTPException(status_code=404, detail="Tarefa não encontrada")
+
+    tarefa.concluida = not tarefa.concluida
+    db.commit()
+    db.refresh(tarefa)
+
+    return tarefa

@@ -26,3 +26,7 @@ def home(request: Request):
 @app.get("/status")
 def status():
     return {"status": "API online"}
+
+# Carrega CSS
+from fastapi.staticfiles import StaticFiles
+app.mount("/static", StaticFiles(directory="static"), name="static")
