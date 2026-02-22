@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+
+  db:
+    image: postgres:15
+    container_name: taskmanager_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: taskmanager
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: taskmanager_api
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/taskmanager
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:

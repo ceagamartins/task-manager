@@ -2,8 +2,8 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from database import engine
-import models
+from app.database import engine
+import app.models as models
 from routers import tarefas
 
 # Cria as tabelas no banco automaticamente
