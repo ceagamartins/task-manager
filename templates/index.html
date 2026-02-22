@@ -6,148 +6,198 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Task Manager</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Seu CSS -->
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        .fade-out {
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s ease;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="container py-4 py-md-5">
+<div class="container py-4 py-md-5">
 
-        <!-- Cabeçalho -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h2 class="fw-bold mb-0">Task Manager</h2>
-                <small class="text-muted">Gerencie suas tarefas</small>
-            </div>
-
-            <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalTarefa">
-                <i class="bi bi-plus-lg"></i> Nova Tarefa
-            </button>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Task Manager</h2>
+            <small class="text-muted">Gerencie suas tarefas</small>
         </div>
 
-        <!-- Lista -->
-        <div class="card card-custom p-3 p-md-4">
-            <h5 class="mb-3">Lista de Tarefas</h5>
-            <ul id="listaTarefas" class="list-group list-group-flush"></ul>
-        </div>
-
+        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalTarefa">
+            <i class="bi bi-plus-lg"></i> Nova Tarefa
+        </button>
     </div>
 
-    <!-- Modal Nova Tarefa -->
-    <div class="modal fade" id="modalTarefa" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Nova Tarefa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    <form id="formTarefa">
-
-                        <div class="mb-3">
-                            <label class="form-label">Título</label>
-                            <input type="text" id="titulo" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Descrição</label>
-                            <input type="text" id="descricao" class="form-control" required>
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-dark">
-                                Criar Tarefa
-                            </button>
-                        </div>
-
-                    </form>
-                </div>
-
-            </div>
-        </div>
+    <div class="card card-custom p-3 p-md-4">
+        <h5 class="mb-3">Lista de Tarefas</h5>
+        <ul id="listaTarefas" class="list-group list-group-flush"></ul>
     </div>
 
-    <!-- Bootstrap JS (OBRIGATÓRIO pro modal funcionar) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</div>
 
-    <script>
+<!-- Modal Nova Tarefa -->
+<div class="modal fade" id="modalTarefa" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
-        async function carregarTarefas() {
-            const response = await fetch("/tarefas");
-            const tarefas = await response.json();
+            <div class="modal-header">
+                <h5 class="modal-title">Nova Tarefa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-            const lista = document.getElementById("listaTarefas");
-            lista.innerHTML = "";
+            <div class="modal-body">
+                <form id="formTarefa">
 
-            tarefas.forEach(t => {
-                lista.innerHTML += `
-                <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 ${t.concluida ? 'tarefa-concluida' : ''}">
-                    
-                    <div class="d-flex align-items-start gap-2 w-100">
-                        <input type="checkbox" 
-                               class="form-check-input mt-1"
-                               ${t.concluida ? 'checked' : ''}
-                               onchange="toggleStatus(${t.id})">
-
-                        <div>
-                            <strong>${t.titulo}</strong><br>
-                            <small class="text-muted">${t.descricao}</small>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label">Título</label>
+                        <input type="text" id="titulo" class="form-control" required>
                     </div>
 
-                    <span class="badge ${t.concluida ? 'badge-concluida' : 'badge-pendente'}">
-                        ${t.concluida ? 'Concluída' : 'Pendente'}
-                    </span>
-                </li>
-                `;
-            });
-        }
+                    <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <input type="text" id="descricao" class="form-control" required>
+                    </div>
 
-        async function toggleStatus(id) {
-            await fetch(`/tarefas/${id}`, {
-                method: "PATCH"
-            });
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-dark">
+                            Criar Tarefa
+                        </button>
+                    </div>
 
-            carregarTarefas();
-        }
+                </form>
+            </div>
 
-        document.getElementById("formTarefa").addEventListener("submit", async function (e) {
-            e.preventDefault();
+        </div>
+    </div>
+</div>
 
-            const titulo = document.getElementById("titulo").value;
-            const descricao = document.getElementById("descricao").value;
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-            await fetch("/tarefas", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    titulo: titulo,
-                    descricao: descricao,
-                    concluida: false
-                })
-            });
+<script>
 
-            this.reset();
+async function carregarTarefas() {
+    const response = await fetch("/tarefas");
+    const tarefas = await response.json();
 
-            const modal = bootstrap.Modal.getInstance(document.getElementById("modalTarefa"));
-            modal.hide();
+    const lista = document.getElementById("listaTarefas");
+    lista.innerHTML = "";
 
-            carregarTarefas();
+    tarefas.forEach(t => {
+        lista.innerHTML += `
+        <li id="tarefa-${t.id}" class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 ${t.concluida ? 'tarefa-concluida' : ''}">
+            
+            <div class="d-flex align-items-start gap-2 w-100">
+                <input type="checkbox" 
+                       class="form-check-input mt-1"
+                       ${t.concluida ? 'checked' : ''}
+                       onchange="toggleStatus(${t.id})">
+
+                <div>
+                    <strong>${t.titulo}</strong><br>
+                    <small class="text-muted">${t.descricao}</small>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge ${t.concluida ? 'badge-concluida' : 'badge-pendente'}">
+                    ${t.concluida ? 'Concluída' : 'Pendente'}
+                </span>
+
+                <button class="btn btn-sm btn-outline-danger"
+                        onclick="confirmarDelete(${t.id}, '${t.titulo}')">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+
+        </li>
+        `;
+    });
+}
+
+async function toggleStatus(id) {
+    await fetch(`/tarefas/${id}`, { method: "PATCH" });
+    carregarTarefas();
+}
+
+async function confirmarDelete(id, titulo) {
+
+    const result = await Swal.fire({
+        title: "Tem certeza?",
+        text: `Deseja realmente excluir "${titulo}"?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar"
+    });
+
+    if (result.isConfirmed) {
+        deletarTarefa(id);
+    }
+}
+
+async function deletarTarefa(id) {
+
+    const response = await fetch(`/tarefas/${id}`, {
+        method: "DELETE"
+    });
+
+    if (response.ok) {
+        const elemento = document.getElementById(`tarefa-${id}`);
+        elemento.classList.add("fade-out");
+
+        setTimeout(() => {
+            elemento.remove();
+        }, 400);
+
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            icon: "success",
+            title: "Tarefa excluída com sucesso",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
         });
+    }
+}
 
-        carregarTarefas();
+document.getElementById("formTarefa").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    </script>
+    const titulo = document.getElementById("titulo").value;
+    const descricao = document.getElementById("descricao").value;
+
+    await fetch("/tarefas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            titulo: titulo,
+            descricao: descricao,
+            concluida: false
+        })
+    });
+
+    this.reset();
+    bootstrap.Modal.getInstance(document.getElementById("modalTarefa")).hide();
+    carregarTarefas();
+});
+
+carregarTarefas();
+
+</script>
 
 </body>
-
 </html>
