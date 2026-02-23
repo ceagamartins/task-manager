@@ -74,7 +74,7 @@ código e deploy profissional.
 
 ### 🔹 1. Clone o repositório
 
-    git clone https://github.com/seu-usuario/task-manager.git
+    git clone https://github.com/ceagamartins/task-manager.git
     cd task-manager
 
 ------------------------------------------------------------------------
