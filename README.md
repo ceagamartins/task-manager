@@ -59,8 +59,9 @@ código e deploy profissional.
     │   └── main.py
     │
     ├── static/
-    │   └── css/
-    │
+    │   ├── css/
+    │   └── js/
+    |
     ├── templates/
     │   └── index.html
     │
@@ -142,9 +143,3 @@ Projeto preparado para deploy em:
 ## 👨‍💻 Autor
 
 Desenvolvido por **Christian Martins**
-
-------------------------------------------------------------------------
-
-## 📜 Licença
-
-Este projeto está sob a licença MIT.

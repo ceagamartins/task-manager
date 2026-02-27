@@ -30,3 +30,8 @@ def status():
 # Carrega CSS
 from fastapi.staticfiles import StaticFiles
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# ROTA PARA TELA DE LOGIN / CADASTRO
+@app.get("/auth", response_class=HTMLResponse)
+def auth_page(request: Request):
+    return templates.TemplateResponse("auth.html", {"request": request})
