@@ -1,0 +1,78 @@
+body {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.auth-form {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.4s ease;
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+}
+
+.auth-form.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+    pointer-events: auto;
+}
+
+.form-wrapper {
+    position: relative;
+    min-height: 220px;
+}
+
+.input-group-custom {
+    position: relative;
+}
+
+.input-group-custom i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+.input-group-custom input {
+    padding-left: 40px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.input-group-custom input:focus {
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+    border-color: #000;
+}
+
+.btn-auth {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-auth:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.auth-toggle {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.auth-toggle:hover {
+    color: #000;
+}

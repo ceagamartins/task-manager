@@ -63,7 +63,8 @@ código e deploy profissional.
     │   └── js/
     |
     ├── templates/
-    │   └── index.html
+    │   ├── index.html
+    │   └── auth.html
     │
     ├── Dockerfile
     ├── docker-compose.yml
