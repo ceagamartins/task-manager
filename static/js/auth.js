@@ -1,32 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const loginForm = document.getElementById("loginForm");
-    const registerForm = document.getElementById("registerForm");
+    const slider = document.getElementById("formSlider");
     const toggleButton = document.getElementById("toggleButton");
     const toggleText = document.getElementById("toggleText");
     const subtitle = document.getElementById("authSubtitle");
 
-    toggleButton.addEventListener("click", function () {
+    let isLogin = true;
 
-        const isLoginActive = loginForm.classList.contains("active");
+    toggleButton.addEventListener("click", () => {
 
-        if (isLoginActive) {
-            loginForm.classList.remove("active");
-            registerForm.classList.add("active");
+        formSlider.style.transform = isLogin
+            ? "translateX(-50%)"
+            : "translateX(0%)";
 
-            subtitle.innerText = "Crie sua conta";
-            toggleText.innerText = "Já possui conta?";
-            toggleButton.innerText = "Entrar";
+        subtitle.textContent = isLogin
+            ? "Crie sua conta"
+            : "Entre na sua conta";
 
-        } else {
-            registerForm.classList.remove("active");
-            loginForm.classList.add("active");
+        toggleText.textContent = isLogin
+            ? "Já tem conta?"
+            : "Não tem conta?";
 
-            subtitle.innerText = "Entre na sua conta";
-            toggleText.innerText = "Não tem conta?";
-            toggleButton.innerText = "Criar conta";
-        }
+        toggleButton.textContent = isLogin
+            ? "Entrar"
+            : "Criar conta";
 
+        isLogin = !isLogin;
     });
 
 });

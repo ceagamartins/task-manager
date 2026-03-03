@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - Task Manager</title>
 
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- CSS -->
     <link rel="stylesheet" href="/static/css/auth.css">
 </head>
 
@@ -25,50 +26,76 @@
             </div>
 
             <div class="form-wrapper">
+                <div class="form-slider" id="formSlider">
 
-                <!-- LOGIN -->
-                <form id="loginForm" class="auth-form active">
-                    <div class="mb-3 input-group-custom">
-                        <i class="bi bi-envelope"></i>
-                        <input type="email" class="form-control" placeholder="Email" required>
-                    </div>
+                    <!-- LOGIN -->
+                    <form class="auth-form" id="loginForm">
 
-                    <div class="mb-3 input-group-custom">
-                        <i class="bi bi-lock"></i>
-                        <input type="password" class="form-control" placeholder="Senha" required>
-                    </div>
+                        <div class="mb-3 input-group-custom">
+                            <i class="bi bi-envelope"></i>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Email" required>
+                        </div>
 
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-dark btn-auth">
-                            Entrar
-                        </button>
-                    </div>
-                </form>
+                        <div class="mb-3 input-group-custom">
+                            <i class="bi bi-lock"></i>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Senha" required>
+                        </div>
 
-                <!-- REGISTER -->
-                <form id="registerForm" class="auth-form">
-                    <div class="mb-3 input-group-custom">
-                        <i class="bi bi-person"></i>
-                        <input type="text" class="form-control" placeholder="Nome" required>
-                    </div>
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-dark btn-auth">
+                                Entrar
+                            </button>
+                        </div>
 
-                    <div class="mb-3 input-group-custom">
-                        <i class="bi bi-envelope"></i>
-                        <input type="email" class="form-control" placeholder="Email" required>
-                    </div>
+                        <div class="social-login mt-4 text-center">
+                            <p class="text-muted mb-3">ou continue com</p>
 
-                    <div class="mb-3 input-group-custom">
-                        <i class="bi bi-lock"></i>
-                        <input type="password" class="form-control" placeholder="Senha" required>
-                    </div>
+                            <div class="d-flex justify-content-center gap-3">
 
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-dark btn-auth">
-                            Criar Conta
-                        </button>
-                    </div>
-                </form>
+                                <button class="social-btn google">
+                                    <i class="bi bi-google"></i>
+                                </button>
 
+                                <button class="social-btn facebook">
+                                    <i class="bi bi-facebook"></i>
+                                </button>
+
+                                <button class="social-btn microsoft">
+                                    <i class="bi bi-microsoft"></i>
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <!-- REGISTER -->
+                    <form class="auth-form" id="registerForm">
+
+                        <div class="mb-3 input-group-custom">
+                            <i class="bi bi-person"></i>
+                            <input type="text" class="form-control" id="registerName" placeholder="Nome" required>
+                        </div>
+
+                        <div class="mb-3 input-group-custom">
+                            <i class="bi bi-envelope"></i>
+                            <input type="email" class="form-control" id="registerEmail" placeholder="Email" required>
+                        </div>
+
+                        <div class="mb-3 input-group-custom">
+                            <i class="bi bi-lock"></i>
+                            <input type="password" class="form-control" id="registerPassword" placeholder="Senha" required>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-auth">
+                                Criar Conta
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
 
             <div class="text-center mt-4">
